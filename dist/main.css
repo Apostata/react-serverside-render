@@ -1,0 +1,1 @@
+body{margin:0;background:#444}.profile{display:flex;align-items:center;justify-content:center;height:100vh;flex-flow:column}.profile img{border-radius:100%;width:300px;box-shadow:0 0 20px #000}.profile h1{color:#fff;font-family:sans-serif;text-shadow:0 0 20px #000}.profile a,a{color:#fff;padding:10px 20px;cursor:pointer}a{margin-top:1px}
