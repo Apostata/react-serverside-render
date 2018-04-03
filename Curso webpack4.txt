@@ -406,98 +406,98 @@ Curso de webpack 4
                 para iniciar o servidor: 
                     heroku local
             
-            Arquivo de configuração do webpack para produção:
-                const path = require('path');
-                const webpack = require('webpack');
-                const HTMLWebpackPlugin = require('html-webpack-plugin');
-                const ExtractTextPlugin = require("extract-text-webpack-plugin");
-                const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+                Arquivo de configuração do webpack para produção:
+                    const path = require('path');
+                    const webpack = require('webpack');
+                    const HTMLWebpackPlugin = require('html-webpack-plugin');
+                    const ExtractTextPlugin = require("extract-text-webpack-plugin");
+                    const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
-                var webpackConfig = {
-                    entry: {
-                        main: [
-                            "./src/main.js"
-                        ]
-                    },
-       
-                    mode: "development",
-     
-                    output: {
-                        filename: "[name]-bundle.js",
-                        path: path.resolve(__dirname, "../dist")
-                    },
-             
-                    devServer: {
-                        contentBase: "dist",
-                        overlay: true,
-                        hot: true, //live reoald
-                        stats:{
-                            colors: true
-                        }
-                    },
+                    var webpackConfig = {
+                        entry: {
+                            main: [
+                                "./src/main.js"
+                            ]
+                        },
+        
+                        mode: "development",
+        
+                        output: {
+                            filename: "[name]-bundle.js",
+                            path: path.resolve(__dirname, "../dist")
+                        },
                 
-                    module:{
-                        rules:[
-                            {//loaders para javascript
-                                test: /\.js$/,
-                                use:[{
-                                    loader: "babel-loader"
-                                }],
-                                exclude: /node_modules/
-                            },
-
-                            { //loader para o css
-                                test: /\.css$/,
-                                use:ExtractTextPlugin.extract({
-                                    fallback: "style-loader",
-                                    use:{
-                                        loader:"css-loader",
-                                        options:{
-                                            minimize: true
-                                        }
-                                    }
-                                })
-                            },
-                
-                            { //loader para o html
-                                test:/\.html$/,
-                                use:[{
-                                    loader: "html-loader",
-                                    options:{
-                                        attrs:["img:src"]
-                                    }
-                                }]
-                            },
-                
-                            { //loader para as imagens
-                                test: /\.(jpg|gif|png)$/,
-                                use:[{
-                                    loader: "file-loader",
-                                    options:{
-                                    name:"images/[name]-[hash:8].[ext]"
-                                    }
-                                }]
+                        devServer: {
+                            contentBase: "dist",
+                            overlay: true,
+                            hot: true, //live reoald
+                            stats:{
+                                colors: true
                             }
-                        ]
-                    },
-                
-                    plugins:[
-                        new OptimizeCssAssetsPlugin({
-                            assetsNameRegExp:/\.css$/g,
-                            cssProcessor: require("cssnano"),
-                            cssProcessorOptions:{
-                                discardComments:{ removeAll: true}
-                            },
-                            canPrint: true
-                        }),
-                        new ExtractTextPlugin("[name].css"),
-                        new HTMLWebpackPlugin({
-                            template: "./src/index.html",
-                            //inject: false //não coloca automáticamente o css e js no html
-                        })
-                    ]   
-                };
-                module.exports = webpackConfig;
+                        },
+                    
+                        module:{
+                            rules:[
+                                {//loaders para javascript
+                                    test: /\.js$/,
+                                    use:[{
+                                        loader: "babel-loader"
+                                    }],
+                                    exclude: /node_modules/
+                                },
+
+                                { //loader para o css
+                                    test: /\.css$/,
+                                    use:ExtractTextPlugin.extract({
+                                        fallback: "style-loader",
+                                        use:{
+                                            loader:"css-loader",
+                                            options:{
+                                                minimize: true
+                                            }
+                                        }
+                                    })
+                                },
+                    
+                                { //loader para o html
+                                    test:/\.html$/,
+                                    use:[{
+                                        loader: "html-loader",
+                                        options:{
+                                            attrs:["img:src"]
+                                        }
+                                    }]
+                                },
+                    
+                                { //loader para as imagens
+                                    test: /\.(jpg|gif|png)$/,
+                                    use:[{
+                                        loader: "file-loader",
+                                        options:{
+                                        name:"images/[name]-[hash:8].[ext]"
+                                        }
+                                    }]
+                                }
+                            ]
+                        },
+                    
+                        plugins:[
+                            new OptimizeCssAssetsPlugin({
+                                assetsNameRegExp:/\.css$/g,
+                                cssProcessor: require("cssnano"),
+                                cssProcessorOptions:{
+                                    discardComments:{ removeAll: true}
+                                },
+                                canPrint: true
+                            }),
+                            new ExtractTextPlugin("[name].css"),
+                            new HTMLWebpackPlugin({
+                                template: "./src/index.html",
+                                //inject: false //não coloca automáticamente o css e js no html
+                            })
+                        ]   
+                    };
+                    module.exports = webpackConfig;
 
 
             Otimizando CSS para produção:
@@ -702,3 +702,6 @@ Curso de webpack 4
                         )
                     }
                 }
+        
+        Server-side render:
+             

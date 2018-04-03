@@ -2,6 +2,11 @@ import express from 'express';
 const server = express();
 import path from 'path';
 
+//server side render com react
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+
+
 if(process.env.NODE_ENV !== "production"){
     const webpack = require('webpack');
     const config = require("../../config/webpack.dev.js");
@@ -14,6 +19,12 @@ if(process.env.NODE_ENV !== "production"){
     server.use(webpackHotMiddleware); //usar live reload USAR SEMPRE DEPOIS DO DEV MIDDLEWARE
     process.env.NODE_ENV = "development";
 }
+
+server.get("*", (req, res)=>{
+    const html = ReactDOMServer.renderToString(<div>Hello SSR!</div>)
+    res.send(html);
+});
+
 
 const expressStaticGzip = require('express-static-gzip');
 server.use(

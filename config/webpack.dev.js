@@ -11,12 +11,6 @@ var webpackConfig = {
             "webpack-hot-middleware/client?reload=true",
             "./src/main.js"
         ],
-        other: [
-            "react-hot-loader/patch",
-            "babel-runtime/regenerator",
-            "webpack-hot-middleware/client?reload=true",
-            "./src/main.js"
-        ]
     },
 
     mode: "development",
@@ -114,11 +108,13 @@ var webpackConfig = {
     },
     plugins:[
         new webpack.HotModuleReplacementPlugin(),
+        /*
         new HTMLWebpackPlugin({
             template: "./src/index.ejs",
             inject: true,
             title: "Link's Jornal"
         }),
+        */
         new webpack.DefinePlugin({
             "process.env":{
                 "NODE_ENV": JSON.stringify("development")
