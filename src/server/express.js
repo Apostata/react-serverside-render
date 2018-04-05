@@ -41,7 +41,7 @@ server.get("*", (req, res) => {
                 <div id="react-root">
                     ${ReactDOMServer.renderToString(<AppRoot/>)}
                 </div>
-            <script src="vendor-bundle.js"></script>
+            <script src="vendors-main-bundle.js"></script>
             <script src="main-bundle.js"></script>
             </body>
         </html>

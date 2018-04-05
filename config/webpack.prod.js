@@ -34,6 +34,7 @@ var webpackConfig = env=> {
         optimization:{
             splitChunks:{
                 chunks: "all",
+                automaticNameDelimiter: "-",
                 cacheGroups:{
                     vendor:{
                         name:"vendor",
