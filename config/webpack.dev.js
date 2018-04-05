@@ -36,8 +36,8 @@ var webpackConfig = {
             chunks: "all",
             automaticNameDelimiter: "-",
             cacheGroups:{
-                vendor:{
-                    name:"vendor",
+                vendors:{
+                    name:"vendors",
                     chunks: "initial",
                     minChunks:2
                 }

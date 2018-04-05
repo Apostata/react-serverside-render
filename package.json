@@ -7,8 +7,9 @@
     "start": "webpack-dev-server --config=config/webpack.dev.js",
     "build:dev": "webpack --config=config/webpack.dev.js",
     "build": "webpack --config=config/webpack.prod.js --env.NODE_ENV=production",
-    "dev": "nodemon --inspect --watch config --watch src/server src/server/main.js",
-    "prod": "NODE_ENV=production node src/server/main.js"
+    "build:server": "NODE_ENV=production webpack --config=config/webpack.server.js --env.NODE_ENV=production --watch",
+    "dev": "nodemon --inspect --watch config  --watch build build/server-bundle.js",
+    "prod": "NODE_ENV=production node build/server-bundle.js"
   },
   "keywords": [],
   "author": "",
@@ -48,7 +49,8 @@
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-dev-middleware": "^3.1.2",
     "webpack-hot-middleware": "^2.21.2",
-    "webpack-mild-compile": "^3.2.0"
+    "webpack-mild-compile": "^3.2.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "webpack": "^4.5.0",

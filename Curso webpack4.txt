@@ -703,5 +703,45 @@ Curso de webpack 4
                     }
                 }
         
+        Bundle Analyzer
+            npm install webpack-bundle-analyzer
+
+            no arquivo de configuraçãodo webpack - webpack.config.js:
+                ...
+                plugins:[
+                    ...
+                    new BundleAnalyzerPlugin({
+                        generateStatsFile: true
+                    })
+                ]   
+                ...
+        Split Chunks (separando bundles)
+            no arquivo de configuraçãodo webpack - webpack.config.js:
+                ...
+                devServer: {
+                    ...
+                },
+
+                optimization:{
+                    splitChunks:{
+                        chunks: "all", // "initial" - somente os chunks iniciais, "async" - sob demanda, "all" - todos os chunks
+                        automaticNameDelimiter: "-",
+                        cacheGroups:{
+                            vendor:{
+                                name:"vendor",
+                                chunks: "initial",
+                                minChunks:2
+                            }
+                        }
+                    }
+                },
+
+                algumas configurações:
+                    minSize (default: 30000) Minimum size for a chunk.
+                    minChunks (default: 1) Minimum number of chunks that share a module before splitting
+                    maxInitialRequests (default 3) Maximum number of parallel requests at an entrypoint
+                    maxAsyncRequests (default 5) Maximum number of parallel requests at on-demand loading
+
+                mais informações na documentação oficial : https://webpack.js.org/plugins/split-chunks-plugin/
         Server-side render:
              

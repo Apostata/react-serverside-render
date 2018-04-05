@@ -1,36 +1,27 @@
 const path = require('path');
 const webpack = require('webpack');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const MinifyPlugin = require('babel-minify-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-const BrotliPlugin = require('brotli-webpack-plugin');
-;
+const nodeExternals = require('webpack-node-externals');
+
 var webpackConfig = env=> {
     return{
         entry: {
-            main: [
-                "./src/main.js"
+            server: [
+                "./src/server/main.js"
             ],
         },
 
         mode: "production",
 
+        target: "node",
+
+        externals: nodeExternals(), // ignorar nod_modules
+
         output: {
             filename: "[name]-bundle.js",
-            path: path.resolve(__dirname, "../dist")
+            path: path.resolve(__dirname, "../build")
         },
         
-        devServer: {
-            contentBase: "dist",
-            overlay: true,
-            hot: true, //live reoald
-            stats:{
-                colors: true
-            }
-        },
-
         optimization:{
             splitChunks:{
                 chunks: "all",
@@ -81,7 +72,8 @@ var webpackConfig = env=> {
                             loader: "file-loader",
                             options:{
                             //name:"images/[name]-[hash:8].[ext]"
-                            name:"images/[name].[ext]"
+                            name:"images/[name].[ext]",
+                            emitFile: false
                             }
                         }
                     ]
@@ -100,31 +92,12 @@ var webpackConfig = env=> {
         plugins:[
            
             new ExtractTextPlugin("[name].css"),
-            new OptimizeCssAssetsPlugin({
-                assetsNameRegExp:/\.css$/g,
-                cssProcessor: require("cssnano"),
-                cssProcessorOptions:{
-                    discardComments:{ removeAll: true}
-                },
-                canPrint: true
-            }),
-            /*
-            new HTMLWebpackPlugin({
-                template: "./src/index.ejs",
-                inject: true,
-                title: "Link's Journal"
-            }),
-            */
+           
             new webpack.DefinePlugin({
                 "process.env":{
                     "NODE_ENV": JSON.stringify(env.NODE_ENV)
                 }
-            }),
-            new MinifyPlugin(),
-            new CompressionPlugin({
-                algorithm: "gzip"
-            }),
-            new BrotliPlugin()            
+            })         
         ]
     }
 };
