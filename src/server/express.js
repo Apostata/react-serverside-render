@@ -6,6 +6,8 @@ import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
+import AppRoot from '../components/AppRoot';
+
 
 if(process.env.NODE_ENV !== "production"){
     const webpack = require('webpack');
@@ -20,12 +22,6 @@ if(process.env.NODE_ENV !== "production"){
     process.env.NODE_ENV = "development";
 }
 
-server.get("*", (req, res)=>{
-    const html = ReactDOMServer.renderToString(<div>Hello SSR!</div>)
-    res.send(html);
-});
-
-
 const expressStaticGzip = require('express-static-gzip');
 server.use(
     expressStaticGzip("dist", {
@@ -33,6 +29,25 @@ server.use(
         }
     )
 );
+
+server.get("*", (req, res) => {
+    res.send(`
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <link href="main.css" rel="stylesheet" />
+            </head>
+            <body>
+                <div id="react-root">
+                    ${ReactDOMServer.renderToString(<AppRoot/>)}
+                </div>
+            <script src="vendor-bundle.js"></script>
+            <script src="main-bundle.js"></script>
+            </body>
+        </html>
+    `)
+  })
+
 
 
 const PORT = process.env.PORT || 9001;

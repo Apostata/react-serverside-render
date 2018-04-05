@@ -107,11 +107,13 @@ var webpackConfig = env=> {
                 },
                 canPrint: true
             }),
+            /*
             new HTMLWebpackPlugin({
                 template: "./src/index.ejs",
                 inject: true,
                 title: "Link's Journal"
             }),
+            */
             new webpack.DefinePlugin({
                 "process.env":{
                     "NODE_ENV": JSON.stringify(env.NODE_ENV)

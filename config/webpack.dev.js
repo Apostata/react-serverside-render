@@ -8,6 +8,7 @@ var webpackConfig = {
         main: [
             "react-hot-loader/patch",
             "babel-runtime/regenerator",
+            "babel-register",
             "webpack-hot-middleware/client?reload=true",
             "./src/main.js"
         ],
@@ -121,7 +122,7 @@ var webpackConfig = {
             }
         }),
         new BundleAnalyzerPlugin({
-            generateStatsFile: true
+            generateStatsFile: false
         })
     ]   
 };
