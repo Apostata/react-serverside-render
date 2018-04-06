@@ -743,5 +743,59 @@ Curso de webpack 4
                     maxAsyncRequests (default 5) Maximum number of parallel requests at on-demand loading
 
                 mais informações na documentação oficial : https://webpack.js.org/plugins/split-chunks-plugin/
+        
+        
         Server-side render:
-             
+             React:
+
+                para rodar o react no servidor devemos:
+                    no arquvio do servidor(express.js):
+                        import React from 'react';
+                        import ReactDOMServer from 'react-dom/server'
+                        import AppRoot from '../src/components/AppRoot'
+
+                        ...
+
+                        server.get("*", (req, res) =>{
+                            const html = ReacDOMServer.renderToString(<AppRoot/>);
+                            res.send(html);
+                        })
+
+                        ...
+            Usando Markdown:
+                webpack-node-externals: When bundling with Webpack for the backend - you usually don't want to bundle
+                its node_modules dependencies. This library creates an externals function that ignores node_modules
+                when bundling in Webpack.
+
+                É necessio criar um arquivo de configuração para rodar compilar o backend, com o target setado para "node"
+                e importar o webpack-node-externals:
+                    
+                    ...
+
+                    const nodeExternals = require('webpack-node-externals');
+                    
+                    ...
+
+                    entry: {
+                        server: [
+                            "./src/server/main.js"
+                        ],
+                    },
+
+                    mode: "production",
+                
+                    target: "node", //para não compilar para o browser
+
+                    externals: nodeExternals(), // ignorar nod_modules na compilação
+
+                    ...
+
+                    no arquivo do package.json:
+
+                    "build:server": "NODE_ENV=production webpack --config=config/webpack.server.js --env.NODE_ENV=production --watch", 
+                    para gerar o bundle do servidor 
+
+                    "dev": "nodemon --inspect --watch config  --watch build build/server-bundle.js", 
+                    "prod": "NODE_ENV=production node build/server-bundle.js" 
+                    para os bundles de cliente, em dev e produção
+                        
